@@ -22,3 +22,7 @@ echo "Creating the vue deployment and service..."
 
 kubectl create -f ./kubernetes/dashboard-deployment.yml
 kubectl create -f ./kubernetes/dashboard-service.yml
+
+
+echo "Retrieving the ip of the local cluster"
+echo "$(minikube ip) dashboard.soydanielvergara.com" | sudo tee -a /etc/hosts
