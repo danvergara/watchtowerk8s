@@ -1,10 +1,23 @@
 #!/bin/bash
 
+#
+# echo "Creating the database credentials..."
+#
+# kubectl apply -f ./kubernetes/secret.yml
 
-echo "Creating the database credentials..."
+echo "Installing SealedSecret CRD, server side controller into kube-system namespace..."
 
-kubectl apply -f ./kubernetes/secret.yml
+kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.12.1/controller.yaml
 
+
+echo "Encrypting the secrets..."
+
+kubeseal <kubernetes/secrets.json>kubernetes/sealedsecrets.json
+
+
+echo "Creating the sealed secret..."
+
+kubectl create -f  kubernetes/sealedsecrets.json
 
 echo "Creating the dashboardserver deployment and service..."
 
