@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  annotations:
+spec:
+  rules:
+  - host: dashboard.soydanielvergara.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: dashboard
+          servicePort: 8080
+      - path: /v1/currency-exchange
+        backend:
+          serviceName: dashboardserver
+          servicePort: 8000
+      - path: /v1/historical-currency-rates
+        backend:
+          serviceName: dashboardserver
+          servicePort: 8000
+      - path: /v1/top-news
+        backend:
+          serviceName: dashboardserver
+          servicePort: 8000
+      - path: /v1/current-weather
+        backend:
+          serviceName: dashboardserver
+          servicePort: 8000
+      - path: /v1/weather-forecast
+        backend:
+          serviceName: dashboardserver
+          servicePort: 8000

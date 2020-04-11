@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: dashboardserver
+  labels:
+    name: dashboardserver
+spec:
+  progressDeadlineSeconds: 2147483647
+  replicas: 1
+  revisionHistoryLimit: 2147483647
+  selector:
+    matchLabels:
+      app: dashboardserver
+  strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dashboardserver
+    spec:
+      containers:
+        - name: dashboardserver
+          image: danvergara/dashboardserver:latest
+          imagePullPolicy: Always
+          env:
+          - name: OPENWEATHER_KEY
+            valueFrom:
+              secretKeyRef:
+                key: openweather
+                name: api-keys
+          - name: NEWSAPI_KEY
+            valueFrom:
+              secretKeyRef:
+                key: newsapi
+                name: api-keys
+      dnsPolicy: ClusterFirst
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
