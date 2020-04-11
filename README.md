@@ -20,9 +20,7 @@ and the command description will be displayed
 Usage: \n
   start   starts the local K8s cluster
   stop    stops and deletes the local K8s cluster
-  host    set the local host for the project
   help    Prints this help message
-
 ```
 
 
