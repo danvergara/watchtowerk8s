@@ -1,31 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   name: dashboardserver
-  labels:
-    name: dashboardserver
 spec:
-  progressDeadlineSeconds: 2147483647
-  replicas: 1
-  revisionHistoryLimit: 2147483647
   selector:
     matchLabels:
-      app: dashboardserver
-  strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 1
-      type: RollingUpdate
+      app: dashboardapp
+      tier: backend
+      track: stable
+  replicas: 3
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: dashboardserver
+        app: dashboardapp
+        tier: backend
+        track: stable
     spec:
       containers:
         - name: dashboardserver
           image: danvergara/dashboardserver:latest
+          ports:
+            - containerPort: 8000
           imagePullPolicy: Always
           env:
           - name: OPENWEATHER_KEY
@@ -38,8 +33,3 @@ spec:
               secretKeyRef:
                 key: newsapi
                 name: api-keys
-      dnsPolicy: ClusterFirst
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-status: {}
