@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard
+spec:
+  selector:
+    app: dashboard
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,14 +18,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: dashboardapp
+      app: dashboard
       tier: frontend
       track: stable
   replicas: 1
   template:
     metadata:
       labels:
-        app: dashboardapp
+        app: dashboard
         tier: frontend
         track: stable
     spec:
@@ -22,3 +35,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+          env:
+            - name: VUE_APP_DASHBOARD_SERVER_URL
+              value: https://watchtowerbackend.com
