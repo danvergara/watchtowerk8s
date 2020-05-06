@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboardserver
+spec:
+  selector:
+    app: dashboardserver
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,14 +18,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: dashboardapp
+      app: dashboardserver
       tier: backend
       track: stable
   replicas: 3
   template:
     metadata:
       labels:
-        app: dashboardapp
+        app: dashboardserver
         tier: backend
         track: stable
     spec:
