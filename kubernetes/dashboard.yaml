@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: dashboard
-          image: danvergara/dashboard:latest
+          image: danvergara/dashboard
           imagePullPolicy: Always
           ports:
             - containerPort: 80
