@@ -38,3 +38,13 @@ spec:
           env:
             - name: VUE_APP_DASHBOARD_SERVER_URL
               value: https://watchtowerbackend.com
+            - name: VUE_APP_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: clientid
+                  name: auth-secrets
+            - name: VUE_APP_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  key: domain
+                  name: auth-secrets
