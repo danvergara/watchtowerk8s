@@ -46,3 +46,13 @@ spec:
               secretKeyRef:
                 key: newsapi
                 name: api-keys
+          - name: AUTH0_AUDIENCE
+            valueFrom:
+              secretKeyRef:
+                key: audience
+                name: auth-secrets
+          - name: AUTH0_DOMAIN
+            valueFrom:
+              secretKeyRef:
+                key: domain
+                name: auth-secrets
