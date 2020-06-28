@@ -10,6 +10,7 @@ spec:
   - hosts:
     - watchtowerdan.com
     - watchtowerbackend.com
+    - freedom-analysis.watchtowerdan.com
     secretName: watchtower-tls
   rules:
   - host: watchtowerdan.com
@@ -23,4 +24,10 @@ spec:
       paths:
       - backend:
           serviceName: dashboardserver
+          servicePort: 80
+  - host: freedom-analysis.watchtowerdan.com
+    http:
+      paths:
+      - backend:
+          serviceName: freedom-analysis
           servicePort: 80

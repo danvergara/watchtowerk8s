@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: freedom-analysis
+spec:
+  selector:
+    app: freedom-analysis
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8866
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: freedom-analysis
+spec:
+  selector:
+    matchLabels:
+      app: freedom-analysis
+      tier: frontend
+      track: stable
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: freedom-analysis
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - name: freedom-analysis
+          image: danvergara/freedom-analysis
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8866
