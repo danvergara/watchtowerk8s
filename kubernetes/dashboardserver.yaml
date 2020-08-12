@@ -46,6 +46,11 @@ spec:
               secretKeyRef:
                 key: newsapi
                 name: api-keys
+          - name: METALS_API_KEY
+            valueFrom:
+              secretKeyRef:
+                key: metalsapi
+                name: api-keys
           - name: AUTH0_AUDIENCE
             valueFrom:
               secretKeyRef:
